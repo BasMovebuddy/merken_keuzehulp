@@ -12,8 +12,6 @@
       --teal: #6BBAB9;
       --teal-dark: #284A43;
       --teal-light: #e8f6f6;
-      --purple: #9B9BDA;
-      --purple-light: #f0eefa;
       --text: #636466;
       --white: #ffffff;
       --shadow-card: 0 2px 12px rgba(40,74,67,0.10);
@@ -27,16 +25,9 @@
       padding: 12px;
     }
 
-    .container {
-      max-width: 480px;
-      margin: 0 auto;
-      padding-bottom: 90px;
-    }
+    .container { max-width: 480px; margin: 0 auto; padding-bottom: 90px; }
 
-    .header {
-      text-align: center;
-      padding: 16px 0 14px;
-    }
+    .header { text-align: center; padding: 16px 0 14px; }
 
     .header-badge {
       display: inline-block;
@@ -61,11 +52,7 @@
       margin-bottom: 4px;
     }
 
-    .header p {
-      font-size: 0.9rem;
-      color: var(--text);
-      opacity: 0.7;
-    }
+    .header p { font-size: 0.9rem; color: var(--text); opacity: 0.7; }
 
     .card {
       background: var(--white);
@@ -75,7 +62,6 @@
       box-shadow: var(--shadow-card);
     }
 
-    /* Zoekbalk */
     .search-wrap {
       display: flex;
       align-items: center;
@@ -94,12 +80,7 @@
       background: var(--white);
     }
 
-    .search-icon {
-      color: var(--text);
-      opacity: 0.4;
-      flex-shrink: 0;
-      font-size: 14px;
-    }
+    .search-icon { color: var(--text); opacity: 0.4; flex-shrink: 0; font-size: 14px; }
 
     .search-wrap input {
       flex: 1;
@@ -114,19 +95,11 @@
     .search-wrap input::placeholder { color: #bbb; }
 
     .clear-btn {
-      background: none;
-      border: none;
-      cursor: pointer;
-      color: var(--text);
-      opacity: 0.3;
-      font-size: 14px;
-      padding: 0;
-      display: none;
+      background: none; border: none; cursor: pointer;
+      color: var(--text); opacity: 0.3; font-size: 14px; padding: 0; display: none;
     }
-
     .clear-btn.visible { display: block; }
 
-    /* Merk grid */
     .brand-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -149,11 +122,7 @@
       position: relative;
     }
 
-    .brand-tile:hover {
-      border-color: var(--teal);
-      background: var(--teal-light);
-      transform: translateY(-1px);
-    }
+    .brand-tile:hover { border-color: var(--teal); background: var(--teal-light); transform: translateY(-1px); }
 
     .brand-tile.selected {
       border-color: var(--teal);
@@ -164,10 +133,8 @@
     .brand-tile.selected::after {
       content: '✓';
       position: absolute;
-      top: 5px;
-      right: 7px;
-      font-size: 10px;
-      font-weight: 700;
+      top: 5px; right: 7px;
+      font-size: 10px; font-weight: 700;
       color: var(--teal-dark);
       font-family: 'Baloo 2', sans-serif;
     }
@@ -175,17 +142,14 @@
     .brand-tile.hidden { display: none; }
 
     .brand-logo {
-      width: 64px;
-      height: 36px;
+      width: 64px; height: 36px;
       object-fit: contain;
       filter: grayscale(20%);
       transition: filter 0.18s;
     }
 
     .brand-tile.selected .brand-logo,
-    .brand-tile:hover .brand-logo {
-      filter: grayscale(0%);
-    }
+    .brand-tile:hover .brand-logo { filter: grayscale(0%); }
 
     .brand-tile.img-error .brand-logo { display: none; }
 
@@ -198,9 +162,6 @@
       line-height: 1.2;
     }
 
-    .brand-tile.selected .brand-name { color: var(--teal-dark); }
-
-    /* Geen resultaten */
     .no-results {
       text-align: center;
       padding: 24px 0;
@@ -248,6 +209,8 @@
       font-weight: 700;
     }
 
+    .btn-group { display: flex; gap: 6px; flex-shrink: 0; }
+
     .send-btn {
       font-family: 'Baloo 2', sans-serif;
       font-size: 0.85rem;
@@ -264,10 +227,25 @@
 
     .send-btn:hover { background: #5aa9a8; transform: translateY(-1px); }
 
+    .geen-btn {
+      font-family: 'Baloo 2', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      background: rgba(255,255,255,0.15);
+      color: white;
+      border: 1.5px solid rgba(255,255,255,0.35);
+      border-radius: 10px;
+      padding: 8px 14px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .geen-btn:hover { background: rgba(255,255,255,0.25); border-color: rgba(255,255,255,0.6); }
+
     .toast {
       position: fixed;
-      top: 16px;
-      left: 50%;
+      top: 16px; left: 50%;
       transform: translateX(-50%) translateY(-60px);
       background: var(--teal-dark);
       color: white;
@@ -313,7 +291,10 @@
       <div class="summary-label">Jouw voorkeur</div>
       <div class="summary-count" id="summary-text">Nog geen merk geselecteerd</div>
     </div>
-    <button class="send-btn" onclick="verzenden()">Verstuur →</button>
+    <div class="btn-group">
+      <button class="geen-btn" id="geen-btn" onclick="geenVoorkeur()">Geen voorkeur</button>
+      <button class="send-btn" id="send-btn" style="display:none;" onclick="verzenden()">Verstuur →</button>
+    </div>
   </div>
 </div>
 
@@ -321,49 +302,47 @@
 
 <script>
   const merken = [
-    { naam: 'Honda',        logo: 'https://www.carlogos.org/car-logos/honda-logo-2000-full-640.png' },
-
-
-    { naam: 'Ford',         logo: 'https://1000logos.net/wp-content/uploads/2018/02/Ford-Logo-500x281.png' },
-    { naam: 'Lynk & Co',    logo: 'https://d21buns5ku92am.cloudfront.net/69364/images/398393-Lynk%20%26%20Co-logo-black-6bd77b-large-1628174238.png' },
-    { naam: 'Škoda',        logo: 'https://cdn.webshopapp.com/shops/347118/files/440760527/image.jpg' },
-    { naam: 'MINI',         logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/MINI_logo.svg/1280px-MINI_logo.svg.png' },
-    { naam: 'Peugeot',      logo: 'https://www.pngmart.com/files/22/Peugeot-Logo-Transparent-PNG.png' },
-    { naam: 'Dacia',        logo: 'https://download.logo.wine/logo/Automobile_Dacia/Automobile_Dacia-Logo.wine.png' },
-    { naam: 'Porsche',      logo: 'https://1000logos.net/wp-content/uploads/2018/02/Porsche-Logo.png' },
-    { naam: 'Alfa Romeo',   logo: 'https://logos-world.net/wp-content/uploads/2021/09/Alfa-Romeo-Logo.png' },
-    { naam: 'Smart',        logo: 'https://logos-world.net/wp-content/uploads/2021/06/Smart-Logo.png' },
-    { naam: 'Audi',         logo: 'https://static.vecteezy.com/system/resources/previews/019/766/236/non_2x/audi-logo-audi-icon-transparent-free-png.png' },
-    { naam: 'Tesla',        logo: 'https://www.edigitalagency.com.au/wp-content/uploads/Tesla-logo-red-large-size.png' },
-    { naam: 'Renault',      logo: 'https://www.freepnglogos.com/uploads/renault-logo-png/renault-logo-meaning-and-history-renault-symbol-0.png' },
-    { naam: 'MG',           logo: 'https://cdn.freebiesupply.com/logos/large/2x/mg-logo-png-transparent.png' },
-    { naam: 'Lexus',        logo: 'https://static.wikia.nocookie.net/battlefordreamislandfanfiction/images/f/fd/Lexus_logo.png/revision/latest?cb=20160912230904' },
-    { naam: 'SEAT',         logo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRO5NxAjCY5t5Oat5lbo3AdcZ2ramMG7gbloQ&s' },
-    { naam: 'Kia',          logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/KIA_logo3.svg/1280px-KIA_logo3.svg.png' },
-    { naam: 'DS',           logo: 'https://logos-world.net/wp-content/uploads/2021/08/DS-Automobiles-Logo.png' },
-    { naam: 'Mercedes-Benz',logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Mercedes-Logo.svg/960px-Mercedes-Logo.svg.png' },
-    { naam: 'NIO',          logo: 'https://upload.wikimedia.org/wikipedia/commons/3/30/NIO_logo_emblem.svg' },
-    { naam: 'Fiat',         logo: 'https://images.seeklogo.com/logo-png/5/2/fiat-logo-png_seeklogo-54046.png' },
-    { naam: 'Land Rover',   logo: 'https://upload.wikimedia.org/wikipedia/en/thumb/4/4a/LandRover.svg/1280px-LandRover.svg.png' },
-    { naam: 'Citroën',      logo: 'https://cdn.iconscout.com/icon/free/png-256/free-citroen-logo-icon-svg-download-png-827475.png' },
-    { naam: 'Jeep',         logo: 'https://upload.wikimedia.org/wikipedia/commons/0/0d/Jeep_logo.svg' },
-    { naam: 'Volvo',        logo: 'https://cdn.freebiesupply.com/logos/large/2x/volvo-logo-png-transparent.png' },
-    { naam: 'Opel',         logo: 'https://upload.wikimedia.org/wikipedia/commons/7/7b/Opel-Logo_2017.png' },
-    { naam: 'XPENG',        logo: 'https://1000logos.net/wp-content/uploads/2023/12/XPeng-Logo-2014.png' },
-    { naam: 'Nissan',       logo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4Pccxrc98AwKo8eNRDQ6BVwuNGAaNP2zFsA&s' },
-    { naam: 'Lancia',       logo: 'https://upload.wikimedia.org/wikipedia/en/7/78/Lancia_logo_2022.png' },
-    { naam: 'Polestar',     logo: 'https://cdn.worldvectorlogo.com/logos/polestar.svg' },
-    { naam: 'Suzuki',       logo: 'https://www.nicepng.com/png/full/209-2098373_logo-suzuki-suzuki-logo-png-transparent.png' },
-    { naam: 'Hyundai',      logo: 'https://freepngimg.com/save/webp/3964-hyundai-car-logo-png-brand-image' },
-    { naam: 'Mitsubishi',   logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Mitsubishi_logo.svg/3840px-Mitsubishi_logo.svg.png' },
-    { naam: 'BYD',          logo: 'https://upload.wikimedia.org/wikipedia/commons/e/e2/BYD_Auto_2022_logo.svg' },
-    { naam: 'Subaru',       logo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRoCiJl7AIlUzciCN197cBl-et4qtvtI1AwHQ&s' },
-    { naam: 'CUPRA',        logo: 'https://static.wixstatic.com/media/f2bf43_67b18fb0d7ed45b59e828044d49fd8b7~mv2.png' },
-    { naam: 'Mazda',        logo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiFX_FFzg7a3F0AYu3K8gSNSY2cMDtEnLHpw&s' },
-    { naam: 'BMW',          logo: 'https://pngimg.com/uploads/bmw_logo/bmw_logo_PNG19707.png' },
-    { naam: 'Volkswagen',   logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Volkswagen_logo_2019.svg/500px-Volkswagen_logo_2019.svg.png' },
-    { naam: 'Toyota',       logo: 'https://freepngimg.com/save/3975-toyota-car-logo-png-brand-image/1220x1017' },
-  ].sort((a, b) => a.naam.localeCompare(b.naam));
+    { naam: 'Alfa Romeo',    logo: 'https://logos-world.net/wp-content/uploads/2021/09/Alfa-Romeo-Logo.png' },
+    { naam: 'Audi',          logo: 'https://static.vecteezy.com/system/resources/previews/019/766/236/non_2x/audi-logo-audi-icon-transparent-free-png.png' },
+    { naam: 'BMW',           logo: 'https://pngimg.com/uploads/bmw_logo/bmw_logo_PNG19707.png' },
+    { naam: 'BYD',           logo: 'https://upload.wikimedia.org/wikipedia/commons/e/e2/BYD_Auto_2022_logo.svg' },
+    { naam: 'Citroën',       logo: 'https://cdn.iconscout.com/icon/free/png-256/free-citroen-logo-icon-svg-download-png-827475.png' },
+    { naam: 'CUPRA',         logo: 'https://static.wixstatic.com/media/f2bf43_67b18fb0d7ed45b59e828044d49fd8b7~mv2.png' },
+    { naam: 'Dacia',         logo: 'https://download.logo.wine/logo/Automobile_Dacia/Automobile_Dacia-Logo.wine.png' },
+    { naam: 'DS',            logo: 'https://logos-world.net/wp-content/uploads/2021/08/DS-Automobiles-Logo.png' },
+    { naam: 'Fiat',          logo: 'https://images.seeklogo.com/logo-png/5/2/fiat-logo-png_seeklogo-54046.png' },
+    { naam: 'Ford',          logo: 'https://1000logos.net/wp-content/uploads/2018/02/Ford-Logo-500x281.png' },
+    { naam: 'Honda',         logo: 'https://www.carlogos.org/car-logos/honda-logo-2000-full-640.png' },
+    { naam: 'Hyundai',       logo: 'https://freepngimg.com/save/webp/3964-hyundai-car-logo-png-brand-image' },
+    { naam: 'Jeep',          logo: 'https://upload.wikimedia.org/wikipedia/commons/0/0d/Jeep_logo.svg' },
+    { naam: 'Kia',           logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/KIA_logo3.svg/1280px-KIA_logo3.svg.png' },
+    { naam: 'Lancia',        logo: 'https://upload.wikimedia.org/wikipedia/en/7/78/Lancia_logo_2022.png' },
+    { naam: 'Land Rover',    logo: 'https://upload.wikimedia.org/wikipedia/en/thumb/4/4a/LandRover.svg/1280px-LandRover.svg.png' },
+    { naam: 'Lexus',         logo: 'https://static.wikia.nocookie.net/battlefordreamislandfanfiction/images/f/fd/Lexus_logo.png/revision/latest?cb=20160912230904' },
+    { naam: 'Lynk & Co',     logo: 'https://d21buns5ku92am.cloudfront.net/69364/images/398393-Lynk%20%26%20Co-logo-black-6bd77b-large-1628174238.png' },
+    { naam: 'Mazda',         logo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiFX_FFzg7a3F0AYu3K8gSNSY2cMDtEnLHpw&s' },
+    { naam: 'Mercedes-Benz', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Mercedes-Logo.svg/960px-Mercedes-Logo.svg.png' },
+    { naam: 'MG',            logo: 'https://cdn.freebiesupply.com/logos/large/2x/mg-logo-png-transparent.png' },
+    { naam: 'MINI',          logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/MINI_logo.svg/1280px-MINI_logo.svg.png' },
+    { naam: 'Mitsubishi',    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Mitsubishi_logo.svg/3840px-Mitsubishi_logo.svg.png' },
+    { naam: 'NIO',           logo: 'https://upload.wikimedia.org/wikipedia/commons/3/30/NIO_logo_emblem.svg' },
+    { naam: 'Nissan',        logo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4Pccxrc98AwKo8eNRDQ6BVwuNGAaNP2zFsA&s' },
+    { naam: 'Opel',          logo: 'https://upload.wikimedia.org/wikipedia/commons/7/7b/Opel-Logo_2017.png' },
+    { naam: 'Peugeot',       logo: 'https://www.pngmart.com/files/22/Peugeot-Logo-Transparent-PNG.png' },
+    { naam: 'Polestar',      logo: 'https://cdn.worldvectorlogo.com/logos/polestar.svg' },
+    { naam: 'Porsche',       logo: 'https://1000logos.net/wp-content/uploads/2018/02/Porsche-Logo.png' },
+    { naam: 'Renault',       logo: 'https://www.freepnglogos.com/uploads/renault-logo-png/renault-logo-meaning-and-history-renault-symbol-0.png' },
+    { naam: 'SEAT',          logo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRO5NxAjCY5t5Oat5lbo3AdcZ2ramMG7gbloQ&s' },
+    { naam: 'Škoda',         logo: 'https://cdn.webshopapp.com/shops/347118/files/440760527/image.jpg' },
+    { naam: 'Smart',         logo: 'https://logos-world.net/wp-content/uploads/2021/06/Smart-Logo.png' },
+    { naam: 'Subaru',        logo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRoCiJl7AIlUzciCN197cBl-et4qtvtI1AwHQ&s' },
+    { naam: 'Suzuki',        logo: 'https://www.nicepng.com/png/full/209-2098373_logo-suzuki-suzuki-logo-png-transparent.png' },
+    { naam: 'Tesla',         logo: 'https://www.edigitalagency.com.au/wp-content/uploads/Tesla-logo-red-large-size.png' },
+    { naam: 'Toyota',        logo: 'https://freepngimg.com/save/3975-toyota-car-logo-png-brand-image/1220x1017' },
+    { naam: 'Volkswagen',    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Volkswagen_logo_2019.svg/500px-Volkswagen_logo_2019.svg.png' },
+    { naam: 'Volvo',         logo: 'https://cdn.freebiesupply.com/logos/large/2x/volvo-logo-png-transparent.png' },
+    { naam: 'XPENG',         logo: 'https://1000logos.net/wp-content/uploads/2023/12/XPeng-Logo-2014.png' },
+  ];
 
   const geselecteerd = new Set();
 
@@ -414,9 +393,8 @@
       tile.classList.toggle('hidden', !match);
       if (match) zichtbaar++;
     });
-    const noResults = document.getElementById('no-results');
     document.getElementById('zoek-term').textContent = term;
-    noResults.style.display = zichtbaar === 0 && term.length > 0 ? 'block' : 'none';
+    document.getElementById('no-results').style.display = zichtbaar === 0 && term.length > 0 ? 'block' : 'none';
   }
 
   function clearZoek() {
@@ -427,28 +405,32 @@
   }
 
   function updateSummary() {
-    const el = document.getElementById('summary-text');
-    const aantal = geselecteerd.size;
+    const el       = document.getElementById('summary-text');
+    const geenBtn  = document.getElementById('geen-btn');
+    const sendBtn  = document.getElementById('send-btn');
+    const aantal   = geselecteerd.size;
+
     if (aantal === 0) {
-      el.textContent = 'Nog geen merk geselecteerd';
-    } else if (aantal === 1) {
-      el.textContent = [...geselecteerd][0];
-    } else if (aantal <= 3) {
-      el.textContent = [...geselecteerd].join(', ');
+      el.textContent        = 'Nog geen merk geselecteerd';
+      geenBtn.style.display = 'block';
+      sendBtn.style.display = 'none';
     } else {
-      el.textContent = `${[...geselecteerd].slice(0, 2).join(', ')} +${aantal - 2} meer`;
+      const lijst = [...geselecteerd];
+      el.textContent = aantal <= 3
+        ? lijst.join(', ')
+        : `${lijst.slice(0, 2).join(', ')} +${aantal - 2} meer`;
+      geenBtn.style.display = 'none';
+      sendBtn.style.display = 'block';
     }
   }
 
+  function geenVoorkeur() {
+    window.parent.postMessage({ name: 'merken-verstuurd', data: 'Geen voorkeur' }, '*');
+    showToast('✓ Verstuurd naar je Buddy!');
+  }
+
   function verzenden() {
-    if (geselecteerd.size === 0) {
-      showToast('⚠️ Selecteer eerst een merk');
-      return;
-    }
-    window.parent.postMessage({
-      name: 'merken-verstuurd',
-      data: [...geselecteerd].join(', ')
-    }, '*');
+    window.parent.postMessage({ name: 'merken-verstuurd', data: [...geselecteerd].join(', ') }, '*');
     showToast('✓ Verstuurd naar je Buddy!');
   }
 
